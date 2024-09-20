@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/server": "^11.11.0",
+    "@mui/material-nextjs": "^6.1.1",
+    "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.13"
+    "shopping-app": "file:"
   },
   "devDependencies": {
     "eslint": "^8",
