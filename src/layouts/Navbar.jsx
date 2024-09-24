@@ -8,11 +8,11 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import Link from 'next/link'; // Next.js Link component
+import Link from 'next/link';
 import Image from 'next/image';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import Search from './Search';
+import Search from '@/components/Search';
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -29,22 +29,47 @@ const Navbar = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        setHoveredIndex(null); // Reset hovered index when closing the menu
     };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
-    // Example array for pages and settings, replace with your own data
+    // Example array for pages with submenu items
     const pages = [
-        { name: 'Men', to: '/' },
-        { name: 'Women', to: '/about' },
-        { name: 'Classic Tees', to: '/about' },
-        { name: 'Oversized Tees', to: '/about' },
-        { name: 'Fashion Joggers', to: '/about' },
-        { name: 'Hoodies', to: '/about' },
-        { name: 'Travel Hoodies', to: '/about' },
+        {
+            name: 'Men',
+            to: '/',
+            subMenu: [
+                { name: 'Joggers', image: 'nav1.webp' },
+                { name: 'Co-Ord Sets', image: 'nav2.avif' },
+                {
+                    name: 'Oversized T-Shirts',
+                    image: 'nav3.webp',
+                },
+                { name: 'T-Shirts', image: 'nav4.avif' },
+                { name: 'Shorts', image: 'nav5.avif' },
+            ],
+        },
+        {
+            name: 'Women',
+            to: '/about',
+            subMenu: [
+                { name: 'T-Shirts', image: 'nav6.avif' },
+                {
+                    name: 'Oversized T-Shirts',
+                    image: 'nav7.avif',
+                },
+            ],
+        },
+        { name: 'Classic Tees', to: '/about', subMenu: [] },
+        { name: 'Oversized Tees', to: '/about', subMenu: [] },
+        { name: 'Fashion Joggers', to: '/about', subMenu: [] },
+        { name: 'Hoodies', to: '/about', subMenu: [] },
+        { name: 'Travel Hoodies', to: '/about', subMenu: [] },
     ];
+
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     return (
@@ -52,11 +77,11 @@ const Navbar = () => {
             <AppBar
                 position='static'
                 sx={{
-                    backgroundColor: '#fff',
+                    backgroundColor: 'background.default',
                     p: 2,
-
                     boxShadow: 'none',
-                    borderBottom: ' 1px solid #E5E7EB',
+                    borderBottom: ' 1px solid',
+                    borderColor: 'divider',
                 }}>
                 <Container maxWidth='none'>
                     <Toolbar disableGutters>
@@ -146,43 +171,105 @@ const Navbar = () => {
                                 display: { xs: 'none', md: 'flex' },
                             }}>
                             {pages.map((page, i) => (
-                                <Typography
+                                <Box
                                     key={i}
-                                    sx={{
-                                        mx: 3,
-                                        position: 'relative', // Ensure relative positioning for underline
-                                        color:
-                                            hoveredIndex === null ||
-                                            hoveredIndex === i
-                                                ? '#000'
-                                                : '#BDBDBD', // Default black, gray if not hovered
-                                        fontWeight: 'bold',
-                                        textDecoration: 'none',
-                                        cursor: 'pointer',
-                                        '&:hover': {
-                                            '&:after': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                bottom: -36, // Position underline below the text
-                                                left: 0,
-                                                width: '100%',
-                                                height: '2px',
-                                                backgroundColor: '#EB4343', // Color for underline
-                                            },
-                                        },
-                                    }}
                                     onMouseEnter={() => setHoveredIndex(i)} // Set hovered index on hover
                                     onMouseLeave={() => setHoveredIndex(null)} // Reset hover index when leaving
-                                >
-                                    <Link
-                                        href={page.to}
-                                        style={{
-                                            color: 'inherit', // Inherit the color from Typography
+                                    sx={{ position: 'relative' }}>
+                                    <Typography
+                                        sx={{
+                                            mx: 3,
+                                            color:
+                                                hoveredIndex === null ||
+                                                hoveredIndex === i
+                                                    ? '#000'
+                                                    : '#BDBDBD',
+                                            fontWeight: 'bold',
                                             textDecoration: 'none',
+                                            cursor: 'pointer',
+                                            '&:hover': {
+                                                '&:after': {
+                                                    content: '""',
+                                                    position: 'absolute',
+                                                    bottom: -36, // Position underline below the text
+                                                    left: 0,
+                                                    width: '100%',
+                                                    height: '2px',
+                                                    backgroundColor: '#EB4343', // Color for underline
+                                                },
+                                            },
                                         }}>
-                                        {page.name}
-                                    </Link>
-                                </Typography>
+                                        <Link
+                                            href={page.to}
+                                            style={{
+                                                color: 'inherit',
+                                                textDecoration: 'none',
+                                            }}>
+                                            {page.name}
+                                        </Link>
+                                    </Typography>
+
+                                    {/* Dropdown Menu for Submenu Items */}
+                                    {hoveredIndex === i &&
+                                        page.subMenu.length > 0 && (
+                                            <Box
+                                                sx={{
+                                                    width: '100%',
+                                                    position: 'absolute',
+                                                    top: '100%',
+                                                    left: -250,
+                                                    backgroundColor: '#fff',
+                                                    border: '1px solid #E5E7EB',
+                                                    boxShadow:
+                                                        '0 2px 10px rgba(0,0,0,0.1)',
+                                                    zIndex: 10000,
+                                                    mt: 4.5,
+                                                    border: ' 1px solid #E5E7EB',
+                                                    width: '100vw',
+
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+
+                                                    p: 5,
+                                                    pl: 15,
+                                                }}>
+                                                {page.subMenu.map(
+                                                    (subItem, j) => (
+                                                        <Box>
+                                                            <MenuItem
+                                                                key={j}
+                                                                sx={{
+                                                                    display:
+                                                                        'flex',
+                                                                }}>
+                                                                <Box>
+                                                                    <Image
+                                                                        src={`/images/${subItem.image}`}
+                                                                        alt='image'
+                                                                        width={
+                                                                            150
+                                                                        }
+                                                                        height={
+                                                                            150
+                                                                        }
+                                                                    />
+                                                                    <Typography
+                                                                        textAlign='center'
+                                                                        fontWeight='bold'
+                                                                        mt={1}>
+                                                                        {
+                                                                            subItem.name
+                                                                        }
+                                                                    </Typography>
+                                                                </Box>
+                                                            </MenuItem>
+                                                            <Box>dgsg</Box>
+                                                        </Box>
+                                                    )
+                                                )}
+                                            </Box>
+                                        )}
+                                </Box>
                             ))}
                         </Box>
 
