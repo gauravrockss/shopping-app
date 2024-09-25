@@ -13,11 +13,17 @@ import Image from 'next/image';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Search from '@/components/Search';
+import CategoriesMenu from './components/CategoriesMenu';
+import { useMenu } from '@/hooks/useMenu';
+import { List, ListItem } from '@mui/material';
+
+const NavbarHeight = '80px';
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const { anchorEl, closeMenu, openMenu } = useMenu();
 
     const handleOpenNavMenu = event => {
         setAnchorElNav(event.currentTarget);
@@ -36,12 +42,35 @@ const Navbar = () => {
         setAnchorElUser(null);
     };
 
+    const handleClose = e => {
+        if (e.currentTarget.localName !== 'ul') {
+            const menu = document.getElementById('category-menu').children[2];
+            const menuBoundary = {
+                left: menu.offsetLeft,
+                top: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
+                right: menu.offsetLeft + menu.offsetHeight,
+                bottom: menu.offsetTop + menu.offsetHeight,
+            };
+
+            if (
+                e.clientX >= menuBoundary.left &&
+                e.clientX <= menuBoundary.right &&
+                e.clientY <= menuBoundary.bottom &&
+                e.clientY >= menuBoundary.top
+            ) {
+                return;
+            }
+        }
+
+        closeMenu(e);
+    };
+
     // Example array for pages with submenu items
     const pages = [
         {
             name: 'Men',
             to: '/',
-            subMenu: [
+            category: [
                 { name: 'Joggers', image: 'nav1.webp' },
                 { name: 'Co-Ord Sets', image: 'nav2.avif' },
                 {
@@ -55,7 +84,7 @@ const Navbar = () => {
         {
             name: 'Women',
             to: '/about',
-            subMenu: [
+            category: [
                 { name: 'T-Shirts', image: 'nav6.avif' },
                 {
                     name: 'Oversized T-Shirts',
@@ -63,11 +92,11 @@ const Navbar = () => {
                 },
             ],
         },
-        { name: 'Classic Tees', to: '/about', subMenu: [] },
-        { name: 'Oversized Tees', to: '/about', subMenu: [] },
-        { name: 'Fashion Joggers', to: '/about', subMenu: [] },
-        { name: 'Hoodies', to: '/about', subMenu: [] },
-        { name: 'Travel Hoodies', to: '/about', subMenu: [] },
+        { name: 'Classic Tees', to: '/about' },
+        { name: 'Oversized Tees', to: '/about' },
+        { name: 'Fashion Joggers', to: '/about' },
+        { name: 'Hoodies', to: '/about' },
+        { name: 'Travel Hoodies', to: '/about' },
     ];
 
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -78,232 +107,189 @@ const Navbar = () => {
                 position='static'
                 sx={{
                     backgroundColor: 'background.default',
-                    p: 2,
+                    px: 2,
                     boxShadow: 'none',
                     borderBottom: ' 1px solid',
                     borderColor: 'divider',
                 }}>
-                <Container maxWidth='none'>
-                    <Toolbar disableGutters>
-                        {/* Desktop Menu */}
-                        <IconButton
-                            size='large'
-                            edge='start'
-                            color='inherit'
-                            aria-label='menu'
-                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            variant='h6'
-                            component='div'
-                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-                            <Link href='/' passHref>
-                                <Image
-                                    src='images/logo.svg'
-                                    alt='Logo'
-                                    width={100}
-                                    height={33}
-                                />
-                            </Link>
-                        </Typography>
+                <Toolbar
+                    disableGutters
+                    sx={{
+                        '&.MuiToolbar-root': {
+                            minHeight: NavbarHeight,
+                        },
+                    }}>
+                    {/* Desktop Menu */}
+                    <IconButton
+                        size='large'
+                        edge='start'
+                        color='inherit'
+                        aria-label='menu'
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        variant='h6'
+                        component='div'
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                        <Link href='/' passHref>
+                            <Image src='images/logo.svg' alt='Logo' width={100} height={33} />
+                        </Link>
+                    </Typography>
 
-                        {/* Mobile Menu */}
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: 'flex', md: 'none' },
-                            }}>
-                            <Box display='flex' alignItems='center'>
-                                <IconButton
-                                    size='large'
-                                    edge='start'
-                                    aria-label='menu'
-                                    onClick={handleOpenNavMenu}
-                                    sx={{ mr: 2 }}>
-                                    <MenuIcon />
-                                </IconButton>
-                                <Typography variant='h6' component='div'>
-                                    <Link href='/' passHref>
-                                        <Image
-                                            src='images/logo.svg'
-                                            alt='Logo'
-                                            width={100}
-                                            height={33}
-                                        />
-                                    </Link>
-                                </Typography>
-                            </Box>
-
-                            <Menu
-                                id='menu-appbar'
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{ display: { xs: 'block', md: 'none' } }}>
-                                {pages.map((page, i) => (
-                                    <MenuItem
-                                        key={i}
-                                        onClick={handleCloseNavMenu}>
-                                        <Typography textAlign='center'>
-                                            <Link href={page.to} passHref>
-                                                {page.name}
-                                            </Link>
-                                        </Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                    {/* Mobile Menu */}
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'flex', md: 'none' },
+                        }}>
+                        <Box display='flex' alignItems='center'>
+                            <IconButton
+                                size='large'
+                                edge='start'
+                                aria-label='menu'
+                                onClick={handleOpenNavMenu}
+                                sx={{ mr: 2 }}>
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant='h6' component='div'>
+                                <Link href='/' passHref>
+                                    <Image
+                                        src='images/logo.svg'
+                                        alt='Logo'
+                                        width={100}
+                                        height={33}
+                                    />
+                                </Link>
+                            </Typography>
                         </Box>
 
-                        {/* Desktop Menu Items */}
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: 'none', md: 'flex' },
-                            }}>
+                        <Menu
+                            id='menu-appbar'
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{ display: { xs: 'block', md: 'none' } }}>
                             {pages.map((page, i) => (
-                                <Box
-                                    key={i}
-                                    onMouseEnter={() => setHoveredIndex(i)} // Set hovered index on hover
-                                    onMouseLeave={() => setHoveredIndex(null)} // Reset hover index when leaving
-                                    sx={{ position: 'relative' }}>
-                                    <Typography
-                                        sx={{
-                                            mx: 3,
-                                            color:
-                                                hoveredIndex === null ||
-                                                hoveredIndex === i
-                                                    ? '#000'
-                                                    : '#BDBDBD',
-                                            fontWeight: 'bold',
-                                            textDecoration: 'none',
-                                            cursor: 'pointer',
-                                            '&:hover': {
-                                                '&:after': {
-                                                    content: '""',
-                                                    position: 'absolute',
-                                                    bottom: -36, // Position underline below the text
-                                                    left: 0,
-                                                    width: '100%',
-                                                    height: '2px',
-                                                    backgroundColor: '#EB4343', // Color for underline
-                                                },
-                                            },
-                                        }}>
-                                        <Link
-                                            href={page.to}
-                                            style={{
-                                                color: 'inherit',
-                                                textDecoration: 'none',
-                                            }}>
+                                <MenuItem key={i} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign='center'>
+                                        <Link href={page.to} passHref>
                                             {page.name}
                                         </Link>
                                     </Typography>
-
-                                    {/* Dropdown Menu for Submenu Items */}
-                                    {hoveredIndex === i &&
-                                        page.subMenu.length > 0 && (
-                                            <Box
-                                                sx={{
-                                                    width: '100%',
-                                                    position: 'absolute',
-                                                    top: '100%',
-                                                    left: -250,
-                                                    backgroundColor: '#fff',
-                                                    border: '1px solid #E5E7EB',
-                                                    boxShadow:
-                                                        '0 2px 10px rgba(0,0,0,0.1)',
-                                                    zIndex: 10000,
-                                                    mt: 4.5,
-                                                    border: ' 1px solid #E5E7EB',
-                                                    width: '100vw',
-
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-
-                                                    p: 5,
-                                                    pl: 15,
-                                                }}>
-                                                {page.subMenu.map(
-                                                    (subItem, j) => (
-                                                        <Box>
-                                                            <MenuItem
-                                                                key={j}
-                                                                sx={{
-                                                                    display:
-                                                                        'flex',
-                                                                }}>
-                                                                <Box>
-                                                                    <Image
-                                                                        src={`/images/${subItem.image}`}
-                                                                        alt='image'
-                                                                        width={
-                                                                            150
-                                                                        }
-                                                                        height={
-                                                                            150
-                                                                        }
-                                                                    />
-                                                                    <Typography
-                                                                        textAlign='center'
-                                                                        fontWeight='bold'
-                                                                        mt={1}>
-                                                                        {
-                                                                            subItem.name
-                                                                        }
-                                                                    </Typography>
-                                                                </Box>
-                                                            </MenuItem>
-                                                            <Box>dgsg</Box>
-                                                        </Box>
-                                                    )
-                                                )}
-                                            </Box>
-                                        )}
-                                </Box>
+                                </MenuItem>
                             ))}
-                        </Box>
+                        </Menu>
+                    </Box>
 
-                        {/* User Menu */}
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Box
+                    {/* Desktop Menu Items */}
+                    <List
+                        disablePadding
+                        sx={{
+                            display: { xs: 'none', md: 'flex' },
+                            gap: 5,
+                            minHeight: 'inherit',
+                            color: 'black',
+                            mr: 'auto',
+                            '&:hover': {
+                                color: '#BDBDBD',
+                            },
+                        }}>
+                        {pages.map((page, i) => (
+                            <ListItem
+                                disablePadding
+                                key={i}
+                                onMouseOver={e => {
+                                    setHoveredIndex(i); // Set hovered index on hover
+                                    openMenu(e);
+                                }}
+                                onMouseLeave={e => {
+                                    setHoveredIndex(null);
+                                    handleClose(e);
+                                }} // Set hovered index on hover // Reset hover index when leaving
+                                sx={{
+                                    position: 'relative',
+                                    width: 'auto',
+                                    cursor: 'pointer',
+                                    zIndex: 1301,
+                                    color: 'inherit',
+
+                                    '&:hover': {
+                                        '&:after': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            bottom: 0, // Position underline below the text
+                                            left: 0,
+                                            width: '100%',
+                                            height: '2px',
+                                            backgroundColor: '#EB4343', // Color for underline
+                                        },
+                                    },
+                                }}>
+                                <Typography
                                     sx={{
-                                        display: { lg: 'flex', xs: 'none' },
+                                        color: hoveredIndex === i ? '#000' : 'inherit',
+                                        fontWeight: 'bold',
+                                        textDecoration: 'none',
+                                        cursor: 'pointer',
                                     }}>
-                                    <Search />
-                                </Box>
-                                <Box
-                                    sx={{
-                                        ml: 2,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                    }}>
-                                    <IconButton sx={{ mx: 1 }}>
-                                        <PersonOutlineOutlinedIcon
-                                            sx={{ fontSize: '28px' }}
-                                        />
-                                    </IconButton>
-                                    <IconButton>
-                                        <ShoppingBagOutlinedIcon
-                                            sx={{ fontSize: '28px' }}
-                                        />
-                                    </IconButton>
-                                </Box>
+                                    <Link
+                                        href={page.to}
+                                        style={{
+                                            color: 'inherit',
+                                            textDecoration: 'none',
+                                        }}>
+                                        {page.name}
+                                    </Link>
+                                </Typography>
+
+                                {/* Dropdown Menu for Submenu Items */}
+                            </ListItem>
+                        ))}
+                    </List>
+
+                    {/* User Menu */}
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Box
+                                sx={{
+                                    display: { lg: 'flex', xs: 'none' },
+                                }}>
+                                <Search />
+                            </Box>
+                            <Box
+                                sx={{
+                                    ml: 2,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}>
+                                <IconButton sx={{ mx: 1 }}>
+                                    <PersonOutlineOutlinedIcon sx={{ fontSize: '28px' }} />
+                                </IconButton>
+                                <IconButton>
+                                    <ShoppingBagOutlinedIcon sx={{ fontSize: '28px' }} />
+                                </IconButton>
                             </Box>
                         </Box>
-                    </Toolbar>
-                </Container>
+                    </Box>
+                </Toolbar>
             </AppBar>
+
+            <CategoriesMenu
+                anchorEl={anchorEl}
+                categories={pages[hoveredIndex]?.category}
+                open={Boolean(anchorEl) && pages[hoveredIndex]?.category}
+                closeMenu={handleClose}
+            />
         </>
     );
 };
