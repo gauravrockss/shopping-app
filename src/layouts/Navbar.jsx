@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -99,12 +98,10 @@ const Navbar = () => {
         { name: 'Travel Hoodies', to: '/about' },
     ];
 
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
     return (
         <>
             <AppBar
-                position='static'
+                position='fixed'
                 sx={{
                     backgroundColor: 'background.default',
                     px: 2,
@@ -133,7 +130,12 @@ const Navbar = () => {
                         component='div'
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
                         <Link href='/' passHref>
-                            <Image src='images/logo.svg' alt='Logo' width={100} height={33} />
+                            <Image
+                                src='images/logo.svg'
+                                alt='Logo'
+                                width={100}
+                                height={33}
+                            />
                         </Link>
                     </Typography>
 
@@ -237,7 +239,10 @@ const Navbar = () => {
                                 }}>
                                 <Typography
                                     sx={{
-                                        color: hoveredIndex === i ? '#000' : 'inherit',
+                                        color:
+                                            hoveredIndex === i
+                                                ? '#000'
+                                                : 'inherit',
                                         fontWeight: 'bold',
                                         textDecoration: 'none',
                                         cursor: 'pointer',
@@ -273,10 +278,14 @@ const Navbar = () => {
                                     alignItems: 'center',
                                 }}>
                                 <IconButton sx={{ mx: 1 }}>
-                                    <PersonOutlineOutlinedIcon sx={{ fontSize: '28px' }} />
+                                    <PersonOutlineOutlinedIcon
+                                        sx={{ fontSize: '28px' }}
+                                    />
                                 </IconButton>
                                 <IconButton>
-                                    <ShoppingBagOutlinedIcon sx={{ fontSize: '28px' }} />
+                                    <ShoppingBagOutlinedIcon
+                                        sx={{ fontSize: '28px' }}
+                                    />
                                 </IconButton>
                             </Box>
                         </Box>

@@ -1,7 +1,14 @@
-import { Box, Menu, MenuItem, Popover, Typography } from '@mui/material';
+import {
+    Box,
+    Divider,
+    IconButton,
+    Menu,
+    MenuItem,
+    Typography,
+} from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
-
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 const CategoriesMenu = props => {
     const { anchorEl, categories, open, closeMenu } = props;
 
@@ -24,25 +31,134 @@ const CategoriesMenu = props => {
                     minWidth: '100vw',
                 },
             }}>
-            {categories?.map((category, j) => (
-                <MenuItem
-                    key={j}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    p: 5,
+                    pb: 2,
+                    px: 10,
+                }}>
+                <Box
                     sx={{
                         display: 'flex',
                     }}>
-                    <Box>
-                        <Image
-                            src={`/images/${category.image}`}
-                            alt='image'
-                            width={150}
-                            height={150}
-                        />
-                        <Typography textAlign='center' fontWeight='bold' mt={1}>
-                            {category.name}
-                        </Typography>
+                    {categories?.map((category, j) => (
+                        <MenuItem
+                            key={j}
+                            sx={{
+                                display: 'flex',
+                            }}>
+                            <Box>
+                                <Image
+                                    src={`/images/${category.image}`}
+                                    alt='image'
+                                    width={150}
+                                    height={150}
+                                />
+                                <Typography
+                                    textAlign='center'
+                                    fontWeight='bold'
+                                    mt={1}>
+                                    {category.name}
+                                </Typography>
+                            </Box>
+                        </MenuItem>
+                    ))}
+                </Box>
+                <Box>
+                    <Box mr={10} display='flex' alignItems='center'>
+                        <Box>
+                            <Image
+                                src='/images/story1.webp'
+                                alt='menu icon'
+                                width={50}
+                                height={50}
+                                style={{
+                                    borderRadius: '100px',
+                                }}
+                            />
+                        </Box>
+                        <Box mx={2}>
+                            <Typography fontWeight='bold'>
+                                See the latest
+                            </Typography>
+                            <Typography variant='body2'>
+                                Explore the new clothes
+                            </Typography>
+                        </Box>
+                        <IconButton size='small'>
+                            <ArrowForwardIosOutlinedIcon fontSize='small' />
+                        </IconButton>
                     </Box>
-                </MenuItem>
-            ))}
+                    <Divider
+                        sx={{
+                            my: 1.5,
+
+                            borderBottomWidth: '2px',
+                            borderColor: 'divider',
+                        }}
+                    />
+                    {/*  */}
+                    <Box mr={10} display='flex' alignItems='center'>
+                        <Box>
+                            <Image
+                                src='/images/story3.webp'
+                                alt='menu icon'
+                                width={50}
+                                height={50}
+                                style={{
+                                    borderRadius: '100px',
+                                }}
+                            />
+                        </Box>
+                        <Box mx={2}>
+                            <Typography fontWeight='bold'>
+                                See the latest
+                            </Typography>
+                            <Typography variant='body2'>
+                                Explore the new clothes
+                            </Typography>
+                        </Box>
+                        <IconButton size='small'>
+                            <ArrowForwardIosOutlinedIcon fontSize='small' />
+                        </IconButton>
+                    </Box>
+                    <Divider
+                        sx={{
+                            my: 1.5,
+
+                            borderBottomWidth: '2px',
+                            borderColor: 'divider',
+                        }}
+                    />
+                    {/*  */}
+                    <Box mr={10} display='flex' alignItems='center'>
+                        <Box>
+                            <Image
+                                src='/images/story2.webp'
+                                alt='menu icon'
+                                width={50}
+                                height={50}
+                                style={{
+                                    borderRadius: '100px',
+                                }}
+                            />
+                        </Box>
+                        <Box mx={2}>
+                            <Typography fontWeight='bold'>
+                                See the latest
+                            </Typography>
+                            <Typography variant='body2'>
+                                Explore the new clothes
+                            </Typography>
+                        </Box>
+                        <IconButton size='small'>
+                            <ArrowForwardIosOutlinedIcon fontSize='small' />
+                        </IconButton>
+                    </Box>
+                </Box>
+            </Box>
         </Menu>
     );
 };

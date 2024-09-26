@@ -8,17 +8,17 @@ const ThemeContextProvider = props => {
         () =>
             createTheme({
                 palette: {
-                    // primary: {
-                    //     main: '#2AB476',
-                    // },
+                    primary: {
+                        main: '#242F66',
+                    },
                     background: {
                         main: '#F6F6F8',
                     },
                     text: {
                         primary: '#1B1B1B',
                         secondary: '#1A1E31',
-                        tertiary: '#9CA6C9',
-                        default: '#666666', // Default text color
+                        tertiary: '#7C7F85',
+                        green: '#008C2D', // Default text color
                     },
                     white: {
                         light: '#ebeff81c',
