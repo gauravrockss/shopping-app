@@ -1,11 +1,4 @@
-import {
-    Box,
-    Divider,
-    IconButton,
-    Menu,
-    MenuItem,
-    Typography,
-} from '@mui/material';
+import { Box, Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
@@ -50,16 +43,8 @@ const CategoriesMenu = props => {
                                 display: 'flex',
                             }}>
                             <Box>
-                                <Image
-                                    src={`/images/${category.image}`}
-                                    alt='image'
-                                    width={150}
-                                    height={150}
-                                />
-                                <Typography
-                                    textAlign='center'
-                                    fontWeight='bold'
-                                    mt={1}>
+                                <Image src={`/images/${category.image}`} alt='image' width={150} height={150} />
+                                <Typography textAlign='center' fontWeight='bold' mt={1}>
                                     {category.name}
                                 </Typography>
                             </Box>
@@ -80,12 +65,8 @@ const CategoriesMenu = props => {
                             />
                         </Box>
                         <Box mx={2}>
-                            <Typography fontWeight='bold'>
-                                See the latest
-                            </Typography>
-                            <Typography variant='body2'>
-                                Explore the new clothes
-                            </Typography>
+                            <Typography fontWeight='bold'>See the latest</Typography>
+                            <Typography variant='body2'>Explore the new clothes</Typography>
                         </Box>
                         <IconButton size='small'>
                             <ArrowForwardIosOutlinedIcon fontSize='small' />
@@ -113,12 +94,8 @@ const CategoriesMenu = props => {
                             />
                         </Box>
                         <Box mx={2}>
-                            <Typography fontWeight='bold'>
-                                See the latest
-                            </Typography>
-                            <Typography variant='body2'>
-                                Explore the new clothes
-                            </Typography>
+                            <Typography fontWeight='bold'>See the latest</Typography>
+                            <Typography variant='body2'>Explore the new clothes</Typography>
                         </Box>
                         <IconButton size='small'>
                             <ArrowForwardIosOutlinedIcon fontSize='small' />
@@ -146,12 +123,8 @@ const CategoriesMenu = props => {
                             />
                         </Box>
                         <Box mx={2}>
-                            <Typography fontWeight='bold'>
-                                See the latest
-                            </Typography>
-                            <Typography variant='body2'>
-                                Explore the new clothes
-                            </Typography>
+                            <Typography fontWeight='bold'>See the latest</Typography>
+                            <Typography variant='body2'>Explore the new clothes</Typography>
                         </Box>
                         <IconButton size='small'>
                             <ArrowForwardIosOutlinedIcon fontSize='small' />
