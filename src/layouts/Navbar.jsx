@@ -14,13 +14,18 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Search from '@/components/Search';
 import CategoriesMenu from './components/CategoriesMenu';
 import { useMenu } from '@/hooks/useMenu';
-import { List, ListItem } from '@mui/material';
+import { Divider, List, ListItem } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import Button from '@mui/material/Button';
 
 const NavbarHeight = '80px';
 
 const Navbar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null); // State for user menu anchor
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const { anchorEl, closeMenu, openMenu } = useMenu();
 
@@ -29,7 +34,8 @@ const Navbar = () => {
     };
 
     const handleOpenUserMenu = event => {
-        setAnchorElUser(event.currentTarget);
+        console.log('User menu button clicked'); // Check if the event triggers
+        setAnchorElUser(event.currentTarget); // Set anchor element
     };
 
     const handleCloseNavMenu = () => {
@@ -38,7 +44,8 @@ const Navbar = () => {
     };
 
     const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
+        console.log('Closing user menu');
+        setAnchorElUser(null); // Clear anchor element
     };
 
     const handleClose = e => {
@@ -64,7 +71,6 @@ const Navbar = () => {
         closeMenu(e);
     };
 
-    // Example array for pages with submenu items
     const pages = [
         {
             name: 'Men',
@@ -217,14 +223,13 @@ const Navbar = () => {
                                 onMouseLeave={e => {
                                     setHoveredIndex(null);
                                     handleClose(e);
-                                }} // Set hovered index on hover // Reset hover index when leaving
+                                }} // Reset hover index when leaving
                                 sx={{
                                     position: 'relative',
                                     width: 'auto',
                                     cursor: 'pointer',
                                     zIndex: 1301,
                                     color: 'inherit',
-
                                     '&:hover': {
                                         '&:after': {
                                             content: '""',
@@ -256,8 +261,6 @@ const Navbar = () => {
                                         {page.name}
                                     </Link>
                                 </Typography>
-
-                                {/* Dropdown Menu for Submenu Items */}
                             </ListItem>
                         ))}
                     </List>
@@ -277,7 +280,11 @@ const Navbar = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                 }}>
-                                <IconButton sx={{ mx: 1 }}>
+                                <IconButton
+                                    sx={{ mx: 1 }}
+                                    onClick={handleOpenUserMenu}>
+                                    {' '}
+                                    {/* Clicking here should trigger the user menu */}
                                     <PersonOutlineOutlinedIcon
                                         sx={{ fontSize: '28px' }}
                                     />
@@ -293,12 +300,104 @@ const Navbar = () => {
                 </Toolbar>
             </AppBar>
 
+            {/* Categories Menu */}
             <CategoriesMenu
                 anchorEl={anchorEl}
                 categories={pages[hoveredIndex]?.category}
                 open={Boolean(anchorEl) && pages[hoveredIndex]?.category}
                 closeMenu={handleClose}
             />
+
+            {/* User Menu */}
+            <Menu
+                id='menu-appbar'
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+                sx={{
+                    mt: 1, // Add margin on top to separate from button
+                    width: 280, // Set menu width
+                    '& .MuiPaper-root': {
+                        width: '280px ', // Apply width to the menu container
+                    },
+                }}>
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
+                        <AccountCircleIcon sx={{ mr: 2 }} />{' '}
+                    </IconButton>
+                    <Typography textAlign='center'>Profile</Typography>
+                </MenuItem>
+
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
+                        <ContactMailIcon sx={{ mr: 2 }} />{' '}
+                    </IconButton>
+                    <Typography textAlign='center'>Contact Us</Typography>
+                </MenuItem>
+
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
+                        <RateReviewIcon sx={{ mr: 2 }} />
+                    </IconButton>
+                    <Typography textAlign='center'>Reviews</Typography>
+                </MenuItem>
+
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                    m={0}
+                    p={0}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
+                        <LogoutIcon sx={{ mr: 2 }} />
+                    </IconButton>
+                    <Typography textAlign='center'>Logout</Typography>
+                </MenuItem>
+
+                <div style={{ textAlign: 'center', padding: '10px' }}>
+                    <Button
+                        href='/login'
+                        variant='contained'
+                        color='primary'
+                        sx={{
+                            my: 1,
+                            textTransform: 'capitalize',
+                            borderRadius: '20px',
+                        }}>
+                        Log In or Sign Up
+                    </Button>
+                </div>
+            </Menu>
         </>
     );
 };

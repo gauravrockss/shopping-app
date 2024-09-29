@@ -1,19 +1,35 @@
+import { useRouter } from 'next/router';
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter';
 import Layout from './layout';
 import ThemeContextProvider from '@/style/theme';
+import Navbar from '@/layouts/Navbar';
+import Footer from '@/layouts/Footer';
 
 export default function App(props) {
     const { Component, pageProps } = props;
+    const router = useRouter();
+
+    // Define the routes where you don't want to show the Navbar and Footer
+    const noNavbarRoutes = ['/login', '/signup'];
+
+    // Check if the current route should display Navbar and Footer
+    const isNavbarVisible = !noNavbarRoutes.includes(router.pathname);
 
     return (
-        <>
-            <ThemeContextProvider>
+        <ThemeContextProvider>
+            {isNavbarVisible ? (
                 <Layout>
+                    <Navbar />
                     <AppCacheProvider {...props}>
                         <Component {...pageProps} />
                     </AppCacheProvider>
+                    <Footer />
                 </Layout>
-            </ThemeContextProvider>
-        </>
+            ) : (
+                <AppCacheProvider {...props}>
+                    <Component {...pageProps} />
+                </AppCacheProvider> // No Navbar/Footer for login/signup
+            )}
+        </ThemeContextProvider>
     );
 }
