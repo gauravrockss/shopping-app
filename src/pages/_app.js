@@ -10,7 +10,13 @@ export default function App(props) {
     const router = useRouter();
 
     // Define the routes where you don't want to show the Navbar and Footer
-    const noNavbarRoutes = ['/login', '/signup'];
+    const noNavbarRoutes = [
+        '/auth/login',
+        '/auth/signup',
+        '/auth/identify',
+        '/auth/newPassword',
+        '/404',
+    ];
 
     // Check if the current route should display Navbar and Footer
     const isNavbarVisible = !noNavbarRoutes.includes(router.pathname);

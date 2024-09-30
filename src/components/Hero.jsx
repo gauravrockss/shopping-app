@@ -19,7 +19,7 @@ const items = [
 
 function CarouselItem(props) {
     return (
-        <Box position='relative' width='100%' height='600px' mt={5}>
+        <Box position='relative' width='100%' height='600px'>
             <Image
                 src={props.item.image}
                 alt={props.item.name}

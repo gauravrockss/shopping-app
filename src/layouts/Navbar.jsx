@@ -67,12 +67,25 @@ const Navbar = () => {
                         },
                     }}>
                     {/* Desktop Menu */}
-                    <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton
+                        size='large'
+                        edge='start'
+                        color='inherit'
+                        aria-label='menu'
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant='h6' component='div' sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                    <Typography
+                        variant='h6'
+                        component='div'
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
                         <Link href='/' passHref>
-                            <Image src='images/logo.svg' alt='Logo' width={100} height={33} />
+                            <Image
+                                src='images/logo.svg'
+                                alt='Logo'
+                                width={100}
+                                height={33}
+                            />
                         </Link>
                     </Typography>
 
@@ -83,12 +96,22 @@ const Navbar = () => {
                             display: { xs: 'flex', md: 'none' },
                         }}>
                         <Box display='flex' alignItems='center'>
-                            <IconButton size='large' edge='start' aria-label='menu' onClick={handleOpenNavMenu} sx={{ mr: 2 }}>
+                            <IconButton
+                                size='large'
+                                edge='start'
+                                aria-label='menu'
+                                onClick={handleOpenNavMenu}
+                                sx={{ mr: 2 }}>
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant='h6' component='div'>
                                 <Link href='/' passHref>
-                                    <Image src='images/logo.svg' alt='Logo' width={100} height={33} />
+                                    <Image
+                                        src='images/logo.svg'
+                                        alt='Logo'
+                                        width={100}
+                                        height={33}
+                                    />
                                 </Link>
                             </Typography>
                         </Box>
@@ -138,13 +161,19 @@ const Navbar = () => {
                                     display: 'flex',
                                     alignItems: 'center',
                                 }}>
-                                <IconButton sx={{ mx: 1 }} onClick={handleOpenUserMenu}>
+                                <IconButton
+                                    sx={{ mx: 1 }}
+                                    onClick={handleOpenUserMenu}>
                                     {' '}
                                     {/* Clicking here should trigger the user menu */}
-                                    <PersonOutlineOutlinedIcon sx={{ fontSize: '28px' }} />
+                                    <PersonOutlineOutlinedIcon
+                                        sx={{ fontSize: '28px' }}
+                                    />
                                 </IconButton>
                                 <IconButton>
-                                    <ShoppingBagOutlinedIcon sx={{ fontSize: '28px' }} />
+                                    <ShoppingBagOutlinedIcon
+                                        sx={{ fontSize: '28px' }}
+                                    />
                                 </IconButton>
                             </Box>
                         </Box>
@@ -174,29 +203,55 @@ const Navbar = () => {
                         width: '280px ', // Apply width to the menu container
                     },
                 }}>
-                <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton disableFocusRipple disableRipple disablePadding disableGutters>
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
                         <AccountCircleIcon sx={{ mr: 2 }} />{' '}
                     </IconButton>
                     <Typography textAlign='center'>Profile</Typography>
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton disableFocusRipple disableRipple disablePadding disableGutters>
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
                         <ContactMailIcon sx={{ mr: 2 }} />{' '}
                     </IconButton>
                     <Typography textAlign='center'>Contact Us</Typography>
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton disableFocusRipple disableRipple disablePadding disableGutters>
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
                         <RateReviewIcon sx={{ mr: 2 }} />
                     </IconButton>
                     <Typography textAlign='center'>Reviews</Typography>
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu} sx={{ display: 'flex', alignItems: 'center' }} m={0} p={0}>
-                    <IconButton disableFocusRipple disableRipple disablePadding disableGutters>
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                    sx={{ display: 'flex', alignItems: 'center' }}
+                    m={0}
+                    p={0}>
+                    <IconButton
+                        disableFocusRipple
+                        disableRipple
+                        disablePadding
+                        disableGutters>
                         <LogoutIcon sx={{ mr: 2 }} />
                     </IconButton>
                     <Typography textAlign='center'>Logout</Typography>
@@ -204,13 +259,13 @@ const Navbar = () => {
 
                 <div style={{ textAlign: 'center', padding: '10px' }}>
                     <Button
-                        href='/login'
+                        fullWidth
+                        href='/auth/login'
                         variant='contained'
                         color='primary'
                         sx={{
-                            my: 1,
+                            mt: 1,
                             textTransform: 'capitalize',
-                            borderRadius: '20px',
                         }}>
                         Log In or Sign Up
                     </Button>

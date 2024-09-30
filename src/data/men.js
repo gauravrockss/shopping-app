@@ -47,7 +47,7 @@ const storydata = [
                     color: '#fff',
                     fontSize: {
                         xs: '30px',
-                        sm: '40px',
+
                         md: '50px',
                         lg: '60px',
                     },
@@ -63,7 +63,7 @@ const storydata = [
                     color: '#fff',
                     fontSize: {
                         xs: '30px',
-                        sm: '40px',
+
                         md: '50px',
                         lg: '60px',
                     },
@@ -79,7 +79,7 @@ const storydata = [
                     color: '#fff',
                     fontSize: {
                         xs: '30px',
-                        sm: '40px',
+
                         md: '50px',
                         lg: '60px',
                     },
@@ -95,7 +95,7 @@ const storydata = [
                     color: '#fff',
                     fontSize: {
                         xs: '30px',
-                        sm: '40px',
+
                         md: '50px',
                         lg: '60px',
                     },

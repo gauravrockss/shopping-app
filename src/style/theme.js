@@ -52,6 +52,7 @@ const ThemeContextProvider = props => {
                         dark: '#FE7F00',
                         light: '#fe7f001c',
                     },
+                    linkColor: '#0476D3',
                 },
 
                 components: {

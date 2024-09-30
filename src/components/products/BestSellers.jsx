@@ -56,7 +56,7 @@ const BestSellers = () => {
     ];
 
     return (
-        <Box sx={{ padding: 4 }}>
+        <Box>
             <Grid2 container spacing={3}>
                 {items.map((item, i) => (
                     <Grid2 size={{ xs: 12, md: 6, lg: 4, xl: 3 }} key={i}>
