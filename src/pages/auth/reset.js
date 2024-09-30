@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-const NewPassword = () => {
+const ResetPassword = () => {
     const {
         register,
         handleSubmit,
@@ -64,12 +57,8 @@ const NewPassword = () => {
                                     fontSize: '15px',
                                     my: 3,
                                 }}>
-                                <Typography
-                                    color='text.tertiary'
-                                    sx={{ fontSize: '14px' }}>
-                                    Guard your digital gate with a strong
-                                    password: a mix of characters, length, and
-                                    uniqueness.
+                                <Typography color='text.tertiary' sx={{ fontSize: '14px' }}>
+                                    Guard your digital gate with a strong password: a mix of characters, length, and uniqueness.
                                 </Typography>
                             </Box>
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,11 +88,8 @@ const NewPassword = () => {
                                     placeholder='Confirm password'
                                     type='password'
                                     {...register('confirmPassword', {
-                                        required:
-                                            'Please confirm your password',
-                                        validate: value =>
-                                            value === newPassword ||
-                                            'Password do not match',
+                                        required: 'Please confirm your password',
+                                        validate: value => value === newPassword || 'Password do not match',
                                     })}
                                     error={!!errors.confirmPassword}
                                     helperText={errors.confirmPassword?.message}
@@ -124,20 +110,13 @@ const NewPassword = () => {
                             </form>
 
                             <Box sx={{ my: 4 }}>
-                                <Typography
-                                    color='text.secondary'
-                                    fontWeight='bold'>
-                                    Already have an account?{' '}
-                                    <Link href='/auth/login'>Sign in</Link>
+                                <Typography color='text.secondary' fontWeight='bold'>
+                                    Already have an account? <Link href='/auth/login'>Sign in</Link>
                                 </Typography>
                             </Box>
                             <Box>
-                                <Typography
-                                    sx={{ fontSize: '12px' }}
-                                    color='text.tertiary'>
-                                    By using this website, you are hereby
-                                    accepting the terms and conditions
-                                    stipulated within the Privacy Policy
+                                <Typography sx={{ fontSize: '12px' }} color='text.tertiary'>
+                                    By using this website, you are hereby accepting the terms and conditions stipulated within the Privacy Policy
                                     Agreement.
                                 </Typography>
                             </Box>
@@ -149,4 +128,4 @@ const NewPassword = () => {
     );
 };
 
-export default NewPassword;
+export default ResetPassword;

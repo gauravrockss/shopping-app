@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import useErrorHandler from '@/hooks/useErrorHandler';
+import { authApi } from '@/libs/axios';
+import { setCookie } from 'cookies-next';
 
 const Login = () => {
     const {
@@ -17,10 +14,21 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const errorHandler = useErrorHandler();
+    const router = useRouter();
 
-    const onSubmit = data => {
-        console.log('Form Data Submitted:', data);
-        // Add logic to handle form submission here
+    const onSubmit = async data => {
+        try {
+            const response = await authApi.post('/login', data);
+            const user = response.data;
+
+            setCookie('jwt-auth.access-token', user.accessToken);
+            setCookie('jwt-auth.refresh-token', user.refreshToken);
+
+            router.push('/');
+        } catch (err) {
+            errorHandler(err);
+        }
     };
 
     return (
@@ -53,22 +61,15 @@ const Login = () => {
                                 padding: '40px',
                                 textAlign: 'center',
                             }}>
-                            <Typography
-                                variant='h5'
-                                fontWeight='bold'
-                                sx={{ marginBottom: 3 }}>
+                            <Typography variant='h5' fontWeight='bold' sx={{ marginBottom: 3 }}>
                                 Login to your account
                             </Typography>
                             <Box
                                 sx={{
                                     fontSize: '15px',
                                 }}>
-                                <Typography
-                                    color='text.tertiary'
-                                    sx={{ fontSize: '14px' }}>
-                                    Unlock insights and track leads effortlessly
-                                    with real-time monitoring, right at your
-                                    fingertips
+                                <Typography color='text.tertiary' sx={{ fontSize: '14px' }}>
+                                    Unlock insights and track leads effortlessly with real-time monitoring, right at your fingertips
                                 </Typography>
 
                                 <Button
@@ -80,32 +81,15 @@ const Login = () => {
                                     }}
                                     variant='outlined'
                                     color='primary'>
-                                    <Image
-                                        src='/images/google.png'
-                                        alt='google'
-                                        width={25}
-                                        height={25}
-                                        sx={{ height: 25, px: 1 }}
-                                    />
+                                    <Image src='/images/google.png' alt='google' width={25} height={25} sx={{ height: 25, px: 1 }} />
                                     Sign up with Google
                                 </Button>
-                                <Box
-                                    display='flex'
-                                    alignItems='center'
-                                    sx={{ my: 4 }}>
-                                    <Box
-                                        flexGrow={1}
-                                        height='1px'
-                                        bgcolor='grey.400'
-                                    />
+                                <Box display='flex' alignItems='center' sx={{ my: 4 }}>
+                                    <Box flexGrow={1} height='1px' bgcolor='grey.400' />
                                     <Typography variant='body1' mx={2}>
                                         or
                                     </Typography>
-                                    <Box
-                                        flexGrow={1}
-                                        height='1px'
-                                        bgcolor='grey.400'
-                                    />
+                                    <Box flexGrow={1} height='1px' bgcolor='grey.400' />
                                 </Box>
                             </Box>
 
@@ -169,17 +153,12 @@ const Login = () => {
 
                             <Box sx={{ my: 4 }}>
                                 <Typography fontWeight='bold'>
-                                    Don't have an account ?{' '}
-                                    <Link href='/auth/signup'>Sign up</Link>
+                                    Don't have an account ? <Link href='/auth/signup'>Sign up</Link>
                                 </Typography>
                             </Box>
                             <Box>
-                                <Typography
-                                    sx={{ fontSize: '12px' }}
-                                    color='text.tertiary'>
-                                    By using this website, you are hereby
-                                    accepting the terms and conditions
-                                    stipulated within the Privacy Policy
+                                <Typography sx={{ fontSize: '12px' }} color='text.tertiary'>
+                                    By using this website, you are hereby accepting the terms and conditions stipulated within the Privacy Policy
                                     Agreement.
                                 </Typography>
                             </Box>
