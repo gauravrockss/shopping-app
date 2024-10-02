@@ -12,7 +12,7 @@ const ThemeProvider = props => {
             },
             text: {
                 primary: '#1B1B1B',
-                secondary: '#1A1E31',
+                secondary: '#51545E',
                 tertiary: '#7C7F85',
                 green: '#008C2D', // Default text color
             },
@@ -56,10 +56,11 @@ const ThemeProvider = props => {
                 styleOverrides: theme => ({
                     body: {
                         scrollBehavior: 'smooth',
-                        'input::-webkit-outer-spin-button,\ninput::-webkit-inner-spin-button': {
-                            WebkitAppearance: 'none',
-                            margin: '0',
-                        },
+                        'input::-webkit-outer-spin-button,\ninput::-webkit-inner-spin-button':
+                            {
+                                WebkitAppearance: 'none',
+                                margin: '0',
+                            },
 
                         '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
                             backgroundColor: 'transparent',
@@ -69,24 +70,29 @@ const ThemeProvider = props => {
                         '&::-webkit-scrollbar-track': {
                             backgroundColor: 'transparent',
                         },
-                        '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
-                            borderRadius: 8,
-                            backgroundColor: theme.palette.divider,
-                            // backgroundColor: 'red',
-                        },
-                        '&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner': {
-                            backgroundColor: 'inherit',
-                        },
-                        '&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus': {
-                            backgroundColor: '#747775',
-                        },
+                        '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb':
+                            {
+                                borderRadius: 8,
+                                backgroundColor: theme.palette.divider,
+                                // backgroundColor: 'red',
+                            },
+                        '&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner':
+                            {
+                                backgroundColor: 'inherit',
+                            },
+                        '&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus':
+                            {
+                                backgroundColor: '#747775',
+                            },
 
-                        '&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active': {
-                            backgroundColor: '#747775',
-                        },
-                        '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
-                            backgroundColor: '#747775',
-                        },
+                        '&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active':
+                            {
+                                backgroundColor: '#747775',
+                            },
+                        '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover':
+                            {
+                                backgroundColor: '#747775',
+                            },
                     },
                 }),
             },

@@ -12,13 +12,7 @@ import Image from 'next/image';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Search from '@/components/Search';
-import CategoriesMenu from './components/CategoriesMenu';
-import { useMenu } from '@/hooks/useMenu';
-import { Divider, List, ListItem } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import { Divider } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Navlinks } from '@/data/navlinks';
 import NavItems from './components/NavItems';
@@ -197,79 +191,84 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 sx={{
-                    mt: 1, // Add margin on top to separate from button
-                    width: 280, // Set menu width
+                    mt: 1,
+                    width: 320,
                     '& .MuiPaper-root': {
-                        width: '280px ', // Apply width to the menu container
+                        width: '320px',
+                        p: 2,
                     },
                 }}>
-                <MenuItem
-                    onClick={handleCloseUserMenu}
-                    sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton
-                        disableFocusRipple
-                        disableRipple
-                        disablePadding
-                        disableGutters>
-                        <AccountCircleIcon sx={{ mr: 2 }} />{' '}
-                    </IconButton>
-                    <Typography textAlign='center'>Profile</Typography>
-                </MenuItem>
-
-                <MenuItem
-                    onClick={handleCloseUserMenu}
-                    sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton
-                        disableFocusRipple
-                        disableRipple
-                        disablePadding
-                        disableGutters>
-                        <ContactMailIcon sx={{ mr: 2 }} />{' '}
-                    </IconButton>
-                    <Typography textAlign='center'>Contact Us</Typography>
-                </MenuItem>
-
-                <MenuItem
-                    onClick={handleCloseUserMenu}
-                    sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton
-                        disableFocusRipple
-                        disableRipple
-                        disablePadding
-                        disableGutters>
-                        <RateReviewIcon sx={{ mr: 2 }} />
-                    </IconButton>
-                    <Typography textAlign='center'>Reviews</Typography>
-                </MenuItem>
-
-                <MenuItem
-                    onClick={handleCloseUserMenu}
-                    sx={{ display: 'flex', alignItems: 'center' }}
-                    m={0}
-                    p={0}>
-                    <IconButton
-                        disableFocusRipple
-                        disableRipple
-                        disablePadding
-                        disableGutters>
-                        <LogoutIcon sx={{ mr: 2 }} />
-                    </IconButton>
-                    <Typography textAlign='center'>Logout</Typography>
-                </MenuItem>
-
-                <div style={{ textAlign: 'center', padding: '10px' }}>
+                <Box>
+                    <Typography variant='caption' fontWeight='bold'>
+                        Welcome
+                    </Typography>
+                    <br />
+                    <Typography variant='caption'>
+                        To access account and manage orders
+                    </Typography>
                     <Button
-                        fullWidth
+                        size='small'
                         href='/auth/login'
-                        variant='contained'
-                        color='primary'
+                        variant='outlined'
                         sx={{
                             mt: 1,
-                            textTransform: 'capitalize',
                         }}>
-                        Log In or Sign Up
+                        Login / signup
                     </Button>
-                </div>
+                </Box>
+                <Divider sx={{ my: 2 }} />
+
+                <Box>
+                    {['Orders', 'Wishlist', 'Gift Cards', 'Contact Us'].map(
+                        (text, i) => (
+                            <>
+                                <Typography
+                                    key={text}
+                                    variant='caption'
+                                    color='text.tertiary'
+                                    sx={{
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                            transform: 'scale(1.009)',
+                                            color: 'black',
+                                            fontSize: '14px',
+                                        },
+                                    }}>
+                                    {text}
+                                </Typography>
+                                <br />
+                            </>
+                        )
+                    )}
+                </Box>
+                <Divider sx={{ my: 1 }} />
+                <Box>
+                    {[
+                        'Saved Cards',
+                        'Coupons',
+                        'Saved Addresses',
+                        'Credit',
+                        'Saved VPA',
+                    ].map((text, i) => (
+                        <>
+                            <Typography
+                                key={text}
+                                variant='caption'
+                                color='text.tertiary'
+                                sx={{
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        transform: 'scale(1.009)',
+                                        color: 'black',
+                                        fontSize: '14px',
+                                    },
+                                }}>
+                                {text}
+                            </Typography>
+                            <br />
+                        </>
+                    ))}
+                </Box>
             </Menu>
         </>
     );
