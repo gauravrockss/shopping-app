@@ -1,21 +1,21 @@
-import { getCookie } from 'cookies-next';
+'use server';
+
 import { jwtDecode } from 'jwt-decode';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export function getSessionCookie(request) {
-    if (request) {
-        return request.cookies.get('jwt-auth.access-token')?.value;
-    }
-
-    return getCookie('jwt-auth.access-token');
+export async function getSessionCookie() {
+    return cookies().get('jwt-auth.access-token')?.value;
 }
 
-export function getSessionUser(request) {
-    const sessionCookie = getSessionCookie(request);
+export async function getSessionUser() {
+    const sessionCookie = await getSessionCookie();
     if (!sessionCookie) return null;
     return jwtDecode(sessionCookie);
 }
 
-export function logout() {
-    deleteCookie('jwt-auth.access-token');
-    deleteCookie('jwt-auth.refresh-token');
+export async function logout() {
+    cookies().delete('jwt-auth.access-token');
+    cookies().delete('jwt-auth.refresh-token');
+    redirect('/auth/login');
 }

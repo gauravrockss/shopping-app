@@ -110,13 +110,7 @@ const ProductCard = ({ item }) => {
                 </Typography>
             </Box>
 
-            <CardMedia
-                component='img'
-                image={`/images/latest/${item.imageUrl}`}
-                alt={item.name}
-                width={540}
-                height={507}
-            />
+            <CardMedia component='img' image={`/images/latest/${item.imageUrl}`} alt={item.name} width={540} height={507} />
             <Box mt={2}>
                 <Typography fontWeight='bold' color='text.tertiary'>
                     {item.name}
@@ -141,7 +135,7 @@ const ProductCard = ({ item }) => {
                     </Typography>
                 </Box>
                 {/* Additional information */}
-                <Typography color='green' fontWeight='light'>
+                <Typography color='green' fontWeight={500}>
                     Lowest price in last 30 days
                 </Typography>
             </Box>

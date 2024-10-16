@@ -1,4 +1,3 @@
-import { getSessionCookie } from '@/actions/auth';
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -13,11 +12,11 @@ authApi.interceptors.request.use(function (config) {
     return config;
 });
 
-axios.interceptors.request.use(async function (config) {
-    const session = getSessionCookie();
-    console.log('axios session:', session);
-    config.headers.Authorization = session;
-    return config;
-});
+// axios.interceptors.request.use(async function (config) {
+//     const session = getSessionCookie();
+//     console.log('axios session:', session);
+//     config.headers.Authorization = session;
+//     return config;
+// });
 
 export { authApi };
